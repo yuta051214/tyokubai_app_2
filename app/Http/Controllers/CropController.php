@@ -23,7 +23,7 @@ class CropController extends Controller
      */
     public function create()
     {
-        //
+        return view('crops.create');
     }
 
     /**

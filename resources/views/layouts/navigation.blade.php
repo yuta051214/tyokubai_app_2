@@ -33,8 +33,8 @@
                     <x-slot name="content">
                         <!-- Authentication -->
                         @auth
-                            <x-dropdown-link :href="route('posts.create')">
-                                {{ __('Create Post') }}
+                            <x-dropdown-link :href="route('crops.create')">
+                                {{ __('Create Crop') }}
                             </x-dropdown-link>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
