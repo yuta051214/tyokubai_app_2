@@ -51,7 +51,7 @@ class CropController extends Controller
             $crop->save();
 
             // 画像アップロード
-            if (!Storage::putFileAs('public/images/crops', $file, $crop->image)) {
+            if (!Storage::putFileAs('images/crops', $file, $crop->image)) {
                 // 例外を投げてロールバックさせる
                 throw new \Exception('画像ファイルの保存に失敗しました。');
             }
