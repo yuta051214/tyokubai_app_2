@@ -17,7 +17,9 @@ class CropController extends Controller
      */
     public function index()
     {
-        return view('crops.index');
+        $crops = Crop::all();
+
+        return view('crops.index', compact('crops'));
     }
 
     /**
@@ -65,7 +67,8 @@ class CropController extends Controller
         }
 
         return redirect()
-            ->route('crops.show', $crop);
+            ->route('crops.show', $crop)
+            ->with('notice', '記事を登録しました');
     }
 
     /**
@@ -87,7 +90,8 @@ class CropController extends Controller
      */
     public function edit($id)
     {
-        //
+        $crop = Crop::find($id);
+        return view('crops.edit', compact('crop'));
     }
 
     /**
@@ -99,7 +103,52 @@ class CropController extends Controller
      */
     public function update(CropRequest $request, $id)
     {
-        //
+        // dd($request);
+        $crop = crop::find($id);
+
+        if ($request->user()->cannot('update', $crop)) {
+            return redirect()->route('crops.index', $crop)
+                ->withErrors('自分の記事以外は更新できません');
+        }
+
+        $file = $request->file('image');
+        if ($file) {
+            $delete_file_path = 'images/crops/' . $crop->image;
+            $crop->image = date('YmdHis') . '_' . $file->getClientOriginalName();
+        }
+        $crop->fill($request->all());
+
+        // トランザクション開始
+        DB::beginTransaction();
+        try {
+            // 更新
+            $crop->save();
+
+            if ($file) {
+              // 画像アップロード
+            if (!Storage::putFileAs('images/crops', $file, $crop->image)) {
+                  // 例外を投げてロールバックさせる
+                throw new \Exception('画像ファイルの保存に失敗しました。');
+            }
+              // 画像削除
+            if (!Storage::delete($delete_file_path)) {
+                  //アップロードした画像を削除する
+                Storage::delete('images/crops/' . $crop->image);
+                  //例外を投げてロールバックさせる
+                throw new \Exception('画像ファイルの削除に失敗しました。');
+                }
+            }
+
+            // トランザクション終了(成功)
+            DB::commit();
+        } catch (\Exception $e) {
+            // トランザクション終了(失敗)
+            DB::rollback();
+            return back()->withInput()->withErrors($e->getMessage());
+        }
+
+        return redirect()->route('crops.index', $crop)
+            ->with('notice', '記事を更新しました');
     }
 
     /**
@@ -110,6 +159,28 @@ class CropController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $crop = Crop::find($id);
+
+        // トランザクション開始
+        DB::beginTransaction();
+        try {
+            $crop->delete();
+
+            // 画像削除
+            if (!Storage::delete('images/crops/' . $crop->image)) {
+                // 例外を投げてロールバックさせる
+                throw new \Exception('画像ファイルの削除に失敗しました。');
+            }
+
+            // トランザクション終了(成功)
+            DB::commit();
+        } catch (\Exception $e) {
+            // トランザクション終了(失敗)
+            DB::rollback();
+            return back()->withInput()->withErrors($e->getMessage());
+        }
+
+        return redirect()->route('crops.index')
+            ->with('notice', '記事を削除しました');
     }
 }

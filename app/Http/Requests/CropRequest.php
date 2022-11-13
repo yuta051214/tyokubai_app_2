@@ -23,10 +23,18 @@ class CropRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'title' => 'required|string|max:50',
-            'body' => 'required|string|max:2000',
-            'image' => 'required|file|image|mimes:jpg,png',
+        $route = $this->route()->getName();
+
+        $rule = [
+            'name' => 'required|string|max:50',
+            'price' => 'required|integer',
+            'number' => 'required|integer',
         ];
+
+        if ($route === 'crops.store' ||
+            ($route === 'crops.update' && $this->file('image'))) {
+            $rule['image'] = 'required|file|image|mimes:jpg,png';
+        }
+        return $rule;
     }
 }
