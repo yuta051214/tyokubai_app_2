@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CropController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +15,7 @@ use App\Http\Controllers\CropController;
 |
 */
 
-Route::get('/', [CropController::class, 'index'])
+Route::get('/', [UserController::class, 'index'])
     ->name('root');
 
 // Route::get('/', function () {
@@ -25,11 +26,20 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+// 商品（Crop）
 Route::resource('crops', CropController::class)
     ->only(['create', 'store', 'edit', 'update', 'destroy'])
     ->middleware('auth');
 
-    Route::resource('crops', CropController::class)
+Route::resource('crops', CropController::class)
+    ->only(['show', 'index']);
+
+// 直売所（User）
+Route::resource('users', UserController::class)
+    ->only(['edit', 'update'])  // create, store, deleteは削除
+    ->middleware('auth');
+
+Route::resource('users', UserController::class)
     ->only(['show', 'index']);
 
 require __DIR__.'/auth.php';

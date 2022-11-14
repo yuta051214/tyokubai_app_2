@@ -1,51 +1,63 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl text-gray-800 leading-tight">
-            {{ __('商品の編集') }}
+            {{ __('直売所の編集') }}
         </h2>
     </x-slot>
 
-    <div class="container lg:w-1/2 md:w-4/5 w-11/12 mx-auto mt-8 px-8 bg-white shadow-md">
-        <h2 class="text-center text-lg font-bold pt-6 tracking-widest">商品の編集</h2>
+    <div class="container lg:w-1/2 md:w-4/5 w-11/12 mx-auto mt-8 px-8 py-4 bg-white shadow-md">
+        {{-- <h2 class="text-center text-lg font-bold pt-6 tracking-widest">直売所の編集</h2> --}}
 
         {{-- エラーメッセージ --}}
         <x-validation-errors :errors="$errors" />
 
         {{-- フォーム --}}
-        <form action="{{ route('crops.update', $crop) }}" method="POST" enctype="multipart/form-data"
+        <form action="{{ route('users.update', $user) }}" method="POST" enctype="multipart/form-data"
             class="rounded pt-3 pb-8 mb-4">
             @csrf
             @method('PUT')
+
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm mb-2" for="shop">
+                    直売所
+                </label>
+                <input type="text" name="shop"
+                    class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full py-2 px-3"
+                    required placeholder="直売所" value="{{ old('shop', $user->shop) }}">
+            </div>
+
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm mb-2" for="name">
-                    名前
+                    生産者
                 </label>
                 <input type="text" name="name"
                     class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full py-2 px-3"
-                    required placeholder="名前" value="{{ old('name', $crop->name) }}">
+                    required placeholder="生産者" value="{{ old('name', $user->name) }}">
             </div>
+
             <div class="mb-4">
-                <label class="block text-gray-700 text-sm mb-2" for="price">
-                    値段
+                <label class="block text-gray-700 text-sm mb-2" for="address">
+                    所在地
                 </label>
-                <input type="text" name="price"
+                <input type="text" name="address"
                     class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full py-2 px-3"
-                    required placeholder="値段" value="{{ old('price', $crop->price) }}">
+                    required placeholder="所在地" value="{{ old('address', $user->address) }}">
             </div>
+            
             <div class="mb-4">
-                <label class="block text-gray-700 text-sm mb-2" for="number">
-                    個数
+                <label class="block text-gray-700 text-sm mb-2" for="introduction">
+                    説明
                 </label>
-                <input type="text" name="number"
+                <input type="text" name="introduction"
                     class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full py-2 px-3"
-                    required placeholder="個数" value="{{ old('number', $crop->number) }}">
+                    required placeholder="説明" value="{{ old('introduction', $user->introduction) }}">
             </div>
 
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm mb-2" for="image">
                     商品の画像
                 </label>
-                <img src="{{ $crop->image_url }}" alt="" class="mb-4 md:w-2/5 sm:auto">
+                <img src="{{ $user->image_url }}" alt="" class="mb-4 md:w-2/5 sm:auto">
                 <input type="file" name="image" class="border-gray-300">
             </div>
             <input type="submit" value="更新"

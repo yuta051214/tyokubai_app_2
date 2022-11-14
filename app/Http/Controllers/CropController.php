@@ -67,7 +67,7 @@ class CropController extends Controller
         }
 
         return redirect()
-            ->route('crops.show', $crop)
+            ->route('crops.index', $crop)
             ->with('notice', '記事を登録しました');
     }
 
@@ -79,7 +79,7 @@ class CropController extends Controller
      */
     public function show($id)
     {
-        //
+        // 
     }
 
     /**
@@ -103,7 +103,6 @@ class CropController extends Controller
      */
     public function update(CropRequest $request, $id)
     {
-        // dd($request);
         $crop = crop::find($id);
 
         if ($request->user()->cannot('update', $crop)) {
