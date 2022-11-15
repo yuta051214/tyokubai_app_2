@@ -17,9 +17,9 @@
                     <x-slot name="trigger">
                         <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                             @auth
-                                <div>{{ Auth::user()->shop }}</div>
+                                <div><i class="fa-brands fa-pagelines text-green-700"></i> {{ Auth::user()->shop }}</div>
                             @else
-                                <div>直売所の方はコチラ</div>
+                                <div><i class="fa-brands fa-pagelines text-green-700"></i> 直売所の方はコチラ</div>
                             @endauth
 
                             <div class="ml-1">
@@ -35,11 +35,11 @@
                         @auth
                             {{-- 登録 --}}
                             <x-dropdown-link :href="route('crops.create')">
-                                {{ __('商品を登録する') }}
+                                <i class="fa-solid fa-pen-to-square text-green-700"></i>{{ __(' 商品を登録する') }}
                             </x-dropdown-link>
                             {{-- 詳細 --}}
                             <x-dropdown-link :href="route('users.show', Auth::user()->id)">
-                                {{ __('直売所の詳細を確認する') }}
+                                <i class="fa-solid fa-house text-green-700"></i>{{ __(' 直売所を確認する') }}
                             </x-dropdown-link>
                             {{-- ログアウト --}}
                             <form method="POST" action="{{ route('logout') }}">
@@ -47,17 +47,17 @@
                                 <x-dropdown-link :href="route('logout')"
                                         onclick="event.preventDefault();
                                                     this.closest('form').submit();">
-                                    {{ __('ログアウトする') }}
+                                    <i class="fa-solid fa-right-from-bracket text-green-700"></i>{{ __(' ログアウトする') }}
                                 </x-dropdown-link>
                             </form>
                         @else
                             {{-- 登録 --}}
                             <x-dropdown-link :href="route('register')">
-                                {{ __('直売所を登録する') }}
+                                <i class="fa-solid fa-pen-to-square text-green-700"></i>{{ __(' 直売所を登録する') }}
                             </x-dropdown-link>
                             {{-- ログイン --}}
                             <x-dropdown-link :href="route('login')">
-                                {{ __('ログインする') }}
+                                <i class="fa-solid fa-right-to-bracket text-green-700"></i>{{ __(' ログインする') }}
                             </x-dropdown-link>
                         @endauth
                     </x-slot>

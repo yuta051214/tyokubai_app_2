@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl text-gray-800 leading-tight">
-            {{ __('商品の一覧') }}
+            <i class="fa-solid fa-table-cells"></i>{{ __(' 商品の一覧') }}
         </h2>
     </x-slot>
 
@@ -16,7 +16,7 @@
         <div class="flex flex-wrap -mx-1 lg:-mx-4 mb-4">
             @foreach ($crops as $crop)
                 <article class="w-full p-3 md:w-1/4 text-xl text-gray-800 leading-normal">
-                    <div class="bg-blue-100 rounded-xl p-4">
+                    <div class="bg-blue-100 rounded-xl p-4 shadow-lg">
                         {{-- カード --}}
                         <a href="{{ route('crops.edit', $crop) }}">
                             <img src="{{ Storage::url('images/crops/' . $crop->image) }}" alt="" class="mb-4">

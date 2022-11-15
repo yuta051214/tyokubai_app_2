@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl text-gray-800 leading-tight">
-            {{ __('直売所の一覧') }}
+            <i class="fa-solid fa-table-cells-large"></i>{{ __(' 直売所の一覧') }}
         </h2>
     </x-slot>
 
@@ -16,7 +16,7 @@
         <div class="flex flex-wrap -mx-1 lg:-mx-4 mb-4">
             @foreach ($users as $user)
                 <article class="w-full p-2 md:w-1/2 text-xl text-gray-800 leading-normal border-blue-500">
-                    <div class="bg-blue-100 rounded-xl p-4">
+                    <div class="bg-blue-100 rounded-xl p-4  shadow-lg">
                         {{-- カード --}}
                         <a href="{{ route('crops.index', $user) }}">
                             <img src="{{ Storage::url('images/users/' . $user->image) }}" alt="" class="mb-4">
