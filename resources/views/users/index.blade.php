@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl text-gray-800 leading-tight">
-            <i class="fa-solid fa-table-cells-large"></i>{{ __(' 直売所の一覧') }}
+            <i class="fa-solid fa-store text-green-700"></i>{{ __(' 直売所の一覧') }}
         </h2>
     </x-slot>
 
@@ -18,7 +18,7 @@
                 <article class="w-full p-2 md:w-1/2 text-xl text-gray-800 leading-normal border-blue-500">
                     <div class="bg-blue-100 rounded-xl p-4  shadow-lg">
                         {{-- カード --}}
-                        <a href="{{ route('crops.index', $user) }}">
+                        <a href="{{ route('users.crops.index', $user) }}">
                             <img src="{{ Storage::url('images/users/' . $user->image) }}" alt="" class="mb-4">
                             <h2 class="font-sans break-normal text-gray-900 pt-6 pb-1 text-2xl md:text-2xl">生産地：{{ $user->shop }}</h2>
                             <h3>生産者：{{ $user->name }}</h3>

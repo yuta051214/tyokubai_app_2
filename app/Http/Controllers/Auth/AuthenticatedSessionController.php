@@ -32,8 +32,12 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        // ログイン後のリダイレクト先を変更
         // return redirect()->intended(RouteServiceProvider::HOME);
-        return redirect()->route('crops.index');
+
+        // 急遽追加した処理
+        $user = Auth::user();
+        return redirect()->route('users.crops.index', $user);
     }
 
     /**

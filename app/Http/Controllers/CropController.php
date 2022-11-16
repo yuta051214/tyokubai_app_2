@@ -7,18 +7,22 @@ use App\Http\Requests\CropRequest;
 use App\Models\Crop;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class CropController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    
+    public function index($id)
     {
-        $crops = Crop::all();
-
+        $crops = Crop::where('user_id', $id)->get();  // 疲れた〜
+        // dd($crops);
         return view('crops.index', compact('crops'));
     }
 
@@ -66,8 +70,11 @@ class CropController extends Controller
             return back()->withInput()->withErrors($e->getMessage());
         }
 
+        // 急遽追加した処理
+        $user = Auth::user();
+
         return redirect()
-            ->route('crops.index', $crop)
+            ->route('users.crops.index', $user)
             ->with('notice', '記事を登録しました');
     }
 
@@ -91,6 +98,7 @@ class CropController extends Controller
     public function edit($id)
     {
         $crop = Crop::find($id);
+        // dd($crop);
         return view('crops.edit', compact('crop'));
     }
 
@@ -146,7 +154,10 @@ class CropController extends Controller
             return back()->withInput()->withErrors($e->getMessage());
         }
 
-        return redirect()->route('crops.index', $crop)
+        // 急遽追加した処理
+        $user = Auth::user();
+
+        return redirect()->route('users.crops.index', $user)
             ->with('notice', '記事を更新しました');
     }
 

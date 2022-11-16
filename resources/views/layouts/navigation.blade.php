@@ -19,7 +19,7 @@
                             @auth
                                 <div><i class="fa-brands fa-pagelines text-green-700"></i> {{ Auth::user()->shop }}</div>
                             @else
-                                <div><i class="fa-brands fa-pagelines text-green-700"></i> 直売所の方はコチラ</div>
+                                <div><i class="fa-solid fa-store text-green-700"></i> 直売所の方はコチラ</div>
                             @endauth
 
                             <div class="ml-1">

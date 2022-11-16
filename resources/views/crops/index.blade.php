@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl text-gray-800 leading-tight">
-            <i class="fa-solid fa-table-cells"></i>{{ __(' 商品の一覧') }}
+            <i class="fa-solid fa-seedling text-green-700"></i>{{ __(' 商品の一覧') }}
         </h2>
     </x-slot>
 
@@ -18,7 +18,8 @@
                 <article class="w-full p-3 md:w-1/4 text-xl text-gray-800 leading-normal">
                     <div class="bg-blue-100 rounded-xl p-4 shadow-lg">
                         {{-- カード --}}
-                        <a href="{{ route('crops.edit', $crop) }}">
+                        {{-- <a href="{{ route('crops.edit', $crop) }}"> --}}
+                        <div>
                             <img src="{{ Storage::url('images/crops/' . $crop->image) }}" alt="" class="mb-4">
                             <h2 class="font-sans break-normal text-gray-900 pt-6 pb-1 text-3xl md:text-4xl">{{ $crop->name }}</h2>
                             <h3>生産地：{{ $crop->user->shop }}</h3>
@@ -29,7 +30,7 @@
                                 <span class="text-red-400 font-bold">{{ date('Y-m-d H:i:s', strtotime('-1 day')) < $crop->created_at ? 'NEW' : '' }}</span>
                                 {{ $crop->created_at }}
                             </p>
-                        </a>
+                        </div>
 
                         {{-- 編集・削除ボタン --}}
                         <div class="flex flex-row text-center my-4">

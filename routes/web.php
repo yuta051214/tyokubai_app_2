@@ -31,7 +31,7 @@ Route::resource('crops', CropController::class)
     ->only(['create', 'store', 'edit', 'update', 'destroy'])
     ->middleware('auth');
 
-Route::resource('crops', CropController::class)
+Route::resource('users.crops', CropController::class)
     ->only(['show', 'index']);
 
 // 直売所（User）
