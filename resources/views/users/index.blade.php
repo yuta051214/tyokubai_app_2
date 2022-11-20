@@ -25,10 +25,11 @@
                             <h3>所在地：{{ $user->address }}</h3>
                             <h3>説明：{{ $user->introduction }}</h3>
 
-                            <p class="text-sm mb-2 md:text-base font-normal text-gray-600">
+                            {{-- 直売所の登録日 --}}
+                            {{-- <p class="text-sm mb-2 md:text-base font-normal text-gray-600">
                                 <span class="text-red-400 font-bold">{{ date('Y-m-d H:i:s', strtotime('-1 day')) < $user->created_at ? 'NEW' : '' }}</span>
                                 {{ $user->created_at }}
-                            </p>
+                            </p> --}}
                         </a>
                         {{-- 編集・削除ボタン --}}
                         <div class="flex flex-row text-center my-4">

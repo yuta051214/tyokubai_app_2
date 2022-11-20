@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl text-gray-800 leading-tight">
-            {{ __('直売所の詳細') }}
+            <i class="fa-solid fa-store text-green-700"></i>{{ __('直売所の詳細') }}
         </h2>
     </x-slot>
 

@@ -28,7 +28,7 @@
                             <h3>入荷数：{{ $crop->number }} 個</h3>
                             <p class="text-sm mb-2 md:text-base font-normal text-gray-600">
                                 <span class="text-red-400 font-bold">{{ date('Y-m-d H:i:s', strtotime('-1 day')) < $crop->created_at ? 'NEW' : '' }}</span>
-                                {{ $crop->created_at }}
+                                入荷：{{ $crop->created_at }}
                             </p>
                         </div>
 
@@ -45,6 +45,7 @@
                                 </form>
                             @endcan
                         </div>
+                        
                     </div>
                 </article>
             @endforeach

@@ -190,7 +190,8 @@ class CropController extends Controller
             return back()->withInput()->withErrors($e->getMessage());
         }
 
-        return redirect()->route('crops.index')
+        $user = Auth::user();
+        return redirect()->route('users.crops.index', $user)
             ->with('notice', '記事を削除しました');
     }
 }
